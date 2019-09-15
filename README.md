@@ -1,13 +1,33 @@
 # git-rm-merged
 
-**ALERT** Not implemented yet 🤷‍♂️
+git-rm-merged is git subcommand that removes the merged local branches.
 
-The git sub command that removes the merged local branches.
+## Description
+
+You can use the `git-rm-merged` as a git subcommand.
+This removes the merged local branches.
+
+**This confirms if you want to delete the target branches.**
+
+## Install
+
+```
+go get -u github.com/yasukotelin/git-rm-merged
+```
 
 ## Usage
 
-`rm-merged` removes the merged local branches.
+```
+$ git rm-merged
+feature/#1 [y/n]:y
+feature/#2 [y/n]:n
+feature/#3 [y/n]:y
+```
 
-```
-git rm-merged
-```
+## Licence
+
+MIT
+
+## Author
+
+yasukotelin
