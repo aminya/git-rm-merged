@@ -2,6 +2,8 @@
 
 git-rm-merged is git subcommand that removes the merged local branches.
 
+> :bulb:  New git ex command tool [git-ex-js](https://github.com/yasukotelin/git-ex-js)
+
 ## Description
 
 You can use the `git-rm-merged` as a git subcommand.
@@ -12,7 +14,7 @@ This removes the merged local branches.
 ## Install
 
 ```
-go get -u github.com/yasukotelin/git-rm-merged
+go install github.com/yasukotelin/git-rm-merged@latest
 ```
 
 ## Usage
