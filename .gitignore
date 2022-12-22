@@ -4,6 +4,7 @@
 *.dll
 *.so
 *.dylib
+/git-rm-merged
 
 # Test binary, build with `go test -c`
 *.test
