@@ -1,0 +1,49 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: Build and Release
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.24.1'
+          
+      - name: Get the version
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        
+      - name: Build for multiple platforms
+        run: |
+          mkdir -p dist
+          GOOS=linux GOARCH=amd64 go build -o dist/app-linux-amd64
+          GOOS=linux GOARCH=arm64 go build -o dist/app-linux-arm64
+          GOOS=darwin GOARCH=amd64 go build -o dist/app-darwin-amd64
+          GOOS=darwin GOARCH=arm64 go build -o dist/app-darwin-arm64
+          GOOS=windows GOARCH=amd64 go build -o dist/app-windows-amd64.exe
+      
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ steps.get_version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+          files: |
+            dist/app-linux-amd64
+            dist/app-linux-arm64
+            dist/app-darwin-amd64
+            dist/app-darwin-arm64
+            dist/app-windows-amd64.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
